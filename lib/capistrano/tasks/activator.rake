@@ -6,7 +6,8 @@ namespace :load do
   task :defaults do
     set :activator_config_file, -> { "conf/#{fetch(:stage)}.conf" }
     set :activator_logger_file, -> { "conf/#{fetch(:stage)}_logger.xml" }
-    set :activator_apply_evolutions, true
+    set :activator_apply_evolutions, false
+    set :activator_db_name, 'default'
     set :activator_http_port, 9000
     set :activator_http_address, '0.0.0.0'
     set :activator_mem, '1024'
