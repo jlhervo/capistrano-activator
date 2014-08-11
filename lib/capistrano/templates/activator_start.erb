@@ -1,0 +1,7 @@
+nohup ./<%= fetch(:application) %> \
+           -Dconfig.file=<%= activator_config_file_path %> \
+           -Dlogger.file=<%= activator_logger_file_path %> \
+           -Dpidfile.path=<%= activator_pid_path %> \
+           -Dhttp.port=<%= fetch(:activator_http_port) %> \
+           -Dhttp.address=<%= fetch(:activator_http_address) %> \
+           -J-server -mem <%= fetch(:activator_mem) %> > /dev/null 2>&1 & sleep 2

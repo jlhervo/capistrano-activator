@@ -1,7 +1,1 @@
-require "capistrano/activator/version"
-
-module Capistrano
-  module Activator
-    # Your code goes here...
-  end
-end
+load File.expand_path('../tasks/activator.rake', __FILE__)
