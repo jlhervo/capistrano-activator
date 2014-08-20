@@ -2,12 +2,13 @@ module Capistrano
   module Activator
     module HelperMethods
 
-      def template(from, to)
+      def template(from, to, chmod_x = true)
         template_path = File.expand_path("../../templates/#{from}", __FILE__)
         template = ERB.new(File.new(template_path).read).result(binding)
         upload! StringIO.new(template), to
 
         execute :chmod, "644 #{to}"
+        execute :chmod, "+x #{to}" if chmod_x
       end
 
       def activator_start_script

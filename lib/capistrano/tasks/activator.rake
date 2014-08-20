@@ -11,6 +11,8 @@ namespace :load do
     set :activator_http_port, 9000
     set :activator_http_address, '0.0.0.0'
     set :activator_mem, '1024'
+    set :activator_jvm_args, nil
+    set :activator_node_assets_compilation, true
   end
 end
 
@@ -20,9 +22,7 @@ namespace :activator do
     on roles :app do
       execute :mkdir, '-pv', shared_path.join('scripts') unless test "[ -e #{activator_start_script} ]"
       template "activator_start.erb", activator_start_script
-      execute :chmod, "+x #{activator_start_script}"
       template "activator_stage.erb", activator_stage_script
-      execute :chmod, "+x #{activator_stage_script}"
     end
   end
 

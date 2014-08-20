@@ -1,4 +1,4 @@
-# Assets compilation using NodeJS (must be installed)
+<% if fetch(:activator_node_assets_compilation) == true %>
 export SBT_OPTS="$SBT_OPTS -Dsbt.jse.engineType=Node"
-
+<% end %>
 activator clean compile stage

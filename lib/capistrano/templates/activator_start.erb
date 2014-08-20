@@ -5,4 +5,4 @@ nohup ./<%= fetch(:application) %> \
            -Dhttp.port=<%= fetch(:activator_http_port) %> \
            -Dhttp.address=<%= fetch(:activator_http_address) %> \
            -DapplyEvolutions.<%= fetch(:activator_db_name) %>=<%= fetch(:activator_apply_evolutions) %> \
-           -J-server -mem <%= fetch(:activator_mem) %> > /dev/null 2>&1 & sleep 2
+           -J-server -mem <%= fetch(:activator_mem) %> <% fetch(:activator_jvm_args) %> > /dev/null 2>&1 & sleep 2
