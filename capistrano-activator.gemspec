@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Jean-Loïc Hervo"]
   spec.email         = ["neural.footwork@gmail.com"]
   spec.summary       = %q{Capistrano 3 plugin for Typesafe activator stack.}
-  spec.description   = %q{Capistrano 3 plugin including Play! Framework full support. }
+  spec.description   = %q{Capistrano 3 plugin offers a way to master continuous delivery with Play! Framework. }
   spec.homepage      = ""
   spec.license       = "MIT"
 

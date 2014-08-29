@@ -1,0 +1,2 @@
+web: <%= activator_bin_file %> -Dconfig.file=<%= activator_config_file_path %> -Dpidfile.path=<%= activator_pid_path %> -Dhttp.address=<%= fetch(:activator_http_address) %> -Dhttp.port=${PORT} -DapplyEvolutions.<%= fetch(:activator_db_name) %>=<%= fetch(:activator_apply_evolutions) %> -Dlogger.file=<%= activator_log_config_file_path %>
+
