@@ -5,15 +5,14 @@ require 'capistrano/activator/rvm'
 include Capistrano::Activator::Helpers
 include Capistrano::DSL::ActivatorPaths
 
-# TODO document !
-# TODO templated default environment file (with JAVA_OPTS and JDBC_URI)
-# TODO rbenv support
+# TODO documentation
 # TODO Logrotate support
 # TODO Monit support
-# TODO SSL support
+# TODO rbenv support
 # TODO check rollback
 # TODO no downtime deploy using 2 instances load balanced
 # TODO sem (schema evolution manager) support
+# TODO templated default environment file (with JAVA_OPTS, JDBC_URI and LANG)
 
 namespace :load do
   task :defaults do
@@ -31,9 +30,8 @@ namespace :load do
     set :linked_dirs,   fetch(:linked_dirs, []).push('logs', 'pids')
     set :linked_files,  fetch(:linked_files, []).push(".env", 'Procfile')
 
-    # ruby environment
-    set :ruby_version, '2.1.2'
-    set :rvm_path, '/usr/local/rvm'
+    # Ruby environment
+    set :rvm_map_bins, fetch(:rvm_map_bins, []).push('rvmsudo')
   end
 end
 
