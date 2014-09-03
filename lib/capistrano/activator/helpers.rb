@@ -17,6 +17,14 @@ module Capistrano
         test "[ -e #{path} ]"
       end
 
+      def sudo_upload!(from, to)
+        filename = File.basename(to)
+        to_dir = File.dirname(to)
+        tmp_file = "#{fetch(:tmp_dir)}/#{filename}"
+        upload! from, tmp_file
+        sudo :mv, tmp_file, to_dir
+      end
+
       def assets_compiler_exists?(compiler)
         ['Node', 'PhantomJs', 'Rhino', 'Trireme'].include? compiler
       end

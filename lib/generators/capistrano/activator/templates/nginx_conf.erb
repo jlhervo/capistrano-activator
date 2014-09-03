@@ -2,8 +2,23 @@ upstream activator_<%= fetch(:activator_app_name) %> {
   server 127.0.0.1:<%= fetch(:activator_http_port) %>;
 }
 
+<% if fetch(:nginx_use_ssl) %>
 server {
   listen 80;
+  rewrite ^(.*) https://$host$1 permanent;
+}
+<% end %>
+
+server {
+<% if fetch(:nginx_use_ssl) %>
+  listen 443;
+  ssl on;
+  ssl_certificate <%= nginx_ssl_cert_file %>;
+  ssl_certificate_key <%= nginx_ssl_cert_key_file %>;
+<% else %>
+  listen 80;
+<% end %>
+
   server_name <%= host %>;
 
   client_max_body_size 4G;
@@ -18,6 +33,10 @@ server {
     proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header   Host $http_host;
     proxy_http_version 1.1;
+
+<% if fetch(:nginx_use_ssl) %>
+    proxy_set_header X-Forwarded-Proto https;
+<% end %>
 
     proxy_pass http://activator_<%= fetch(:activator_app_name) %>;
   }

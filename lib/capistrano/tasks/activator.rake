@@ -11,8 +11,9 @@ include Capistrano::DSL::ActivatorPaths
 # TODO Logrotate support
 # TODO Monit support
 # TODO SSL support
-# TODO check rollback support
+# TODO check rollback
 # TODO no downtime deploy using 2 instances load balanced
+# TODO sem (schema evolution manager) support
 
 namespace :load do
   task :defaults do
@@ -30,13 +31,9 @@ namespace :load do
     set :linked_dirs,   fetch(:linked_dirs, []).push('logs', 'pids')
     set :linked_files,  fetch(:linked_files, []).push(".env", 'Procfile')
 
-    # Ruby environment
+    # ruby environment
     set :ruby_version, '2.1.2'
     set :rvm_path, '/usr/local/rvm'
-
-    # Nginx configuration
-    set :nginx_enabled, false
-    set :nginx_path, '/etc/nginx'
   end
 end
 
@@ -58,7 +55,7 @@ namespace :activator do
   task :setup_logger do
     on roles :app do
       # upload logger configuration file
-      exucute :mkdir, '-pv', activator_logs_path
+      execute :mkdir, '-pv', activator_logs_path
       upload! template('logger_conf.erb'), activator_log_config_file_path
     end
   end
@@ -117,7 +114,4 @@ task :setup do
   invoke 'activator:setup_config'
   invoke 'activator:setup_logger'
   invoke 'activator:setup_foreman'
-
-  # Loading plugins
-  load File.expand_path('../nginx.rake', __FILE__) if fetch(:nginx_enabled)
 end
